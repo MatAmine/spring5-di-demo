@@ -1,14 +1,21 @@
 package guru.springframework.config;
 
 import guru.springframework.examplebeans.FakeDataSource;
+import guru.springframework.examplebeans.FakeJmsBroker;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.io.ClassPathResource;
 
 @Configuration
-@PropertySource("classpath:datasource.properties")
+//@PropertySource({"classpath:datasource.properties", "classpath:jms.properties"})
+@PropertySources({
+        @PropertySource("classpath:datasource.properties"),
+        @PropertySource("classpath:jms.properties")
+})
 public class PropertyConfiguration {
 
     @Value("${guru.username}")
@@ -19,6 +26,15 @@ public class PropertyConfiguration {
 
     @Value("${guru.dburl}")
     String url;
+
+    @Value("${guru.jms.username}")
+    String jmsUserName;
+
+    @Value("${guru.jms.password}")
+    String jmsPassword;
+
+    @Value("${guru.jms.url}")
+    String jmsUrl;
 
     @Bean
     public FakeDataSource fakeDataSource() {
@@ -31,7 +47,23 @@ public class PropertyConfiguration {
     }
 
     @Bean
-    public static PropertySourcesPlaceholderConfigurer properties(){
-        return new PropertySourcesPlaceholderConfigurer();
+    public FakeJmsBroker fakeJmsBroker() {
+        FakeJmsBroker fakeJmsBroker = new FakeJmsBroker();
+        fakeJmsBroker.setUsername(jmsUserName);
+        fakeJmsBroker.setPassword(jmsPassword);
+        fakeJmsBroker.setUrl(jmsUrl);
+
+        return fakeJmsBroker;
     }
+
+    //PEUT REMPLACER LES ANNOTATIONS PROPERTYSOURCE EN HAUT
+//    @Bean
+//    public static PropertySourcesPlaceholderConfigurer properties(){
+//        PropertySourcesPlaceholderConfigurer property = new PropertySourcesPlaceholderConfigurer();
+//        property.setLocations(
+//                new ClassPathResource("datasource.properties"),
+//                new ClassPathResource("jms.properties")
+//        );
+//        return property;
+//    }
 }
