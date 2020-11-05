@@ -3,3 +3,13 @@ guru:
         username: JMS Username
         password: somepass
         url: someURL
+
+
+--- #3 dashes indicates file separator
+spring:
+    profiles: de
+guru:
+    jms:
+      username: AZERTYuioP
+
+# lines 11 to 13 override because they are part of the "de" profile
