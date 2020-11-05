@@ -1,0 +1,37 @@
+# this is a comment
+
+name: Amine
+
+names: #Comment -> ignored
+  - Amine
+  - John
+  - Ringo
+
+pound_sign: "#" valid picked-up
+
+book:
+    author: Joe Blake
+    publisher: random house
+
+#BOOLEANS below all valids
+
+truth: yes
+another_truth: True
+more_true: true
+
+false: no #No, false, FALSE
+
+
+string_val: "This is it's quote"  #guillemets a cause de l'apostrophe " ' "
+colon_string: "my courses: one two three" #guillemets  a cause des deux points ':'
+
+include_new_lines: |
+    dzadaz dzadaz  dazdaz
+    dzdazda dadza ddzd
+    azzaeza azez aezaeza
+
+ignore_new_lines: >
+    this is
+    just one
+    long string
+    in same line
